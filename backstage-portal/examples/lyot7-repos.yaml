@@ -1,0 +1,541 @@
+---
+# =============================================================================
+# SYSTEM - Lyot7 Projects
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: lyot7-projects
+  description: Ensemble des projets personnels et professionnels de Lyot7
+  tags:
+    - personal
+    - lyot7
+  links:
+    - url: https://github.com/Lyot7
+      title: GitHub Profile
+      icon: github
+spec:
+  owner: guests
+
+---
+# =============================================================================
+# COMPONENTS - Applications Web (TypeScript/Svelte)
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: waiters-app
+  description: Application de gestion pour serveurs
+  annotations:
+    github.com/project-slug: Lyot7/Waiters-App
+    backstage.io/source-location: url:https://github.com/Lyot7/Waiters-App
+  tags:
+    - typescript
+    - webapp
+  links:
+    - url: https://github.com/Lyot7/Waiters-App
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: freelanding
+  description: Landing page freelance
+  annotations:
+    github.com/project-slug: Lyot7/Freelanding
+    backstage.io/source-location: url:https://github.com/Lyot7/Freelanding
+  tags:
+    - svelte
+    - landing-page
+  links:
+    - url: https://github.com/Lyot7/Freelanding
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: piction-ai-ry
+  description: Application mobile piction.ai.ry
+  annotations:
+    github.com/project-slug: Lyot7/piction.ai.ry
+    backstage.io/source-location: url:https://github.com/Lyot7/piction.ai.ry
+  tags:
+    - dart
+    - flutter
+    - mobile
+  links:
+    - url: https://github.com/Lyot7/piction.ai.ry
+      title: GitHub
+      icon: github
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: freelance-dev-landing
+  description: Landing page pour developpeur freelance
+  annotations:
+    github.com/project-slug: Lyot7/freelance_dev_landing
+    backstage.io/source-location: url:https://github.com/Lyot7/freelance_dev_landing
+  tags:
+    - landing-page
+    - freelance
+  links:
+    - url: https://github.com/Lyot7/freelance_dev_landing
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ci-intro
+  description: Introduction a la CI/CD
+  annotations:
+    github.com/project-slug: Lyot7/ci-intro
+    backstage.io/source-location: url:https://github.com/Lyot7/ci-intro
+  tags:
+    - javascript
+    - ci-cd
+    - tutorial
+  links:
+    - url: https://github.com/Lyot7/ci-intro
+      title: GitHub
+      icon: github
+spec:
+  type: documentation
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: portfolio
+  description: Portfolio personnel
+  annotations:
+    github.com/project-slug: Lyot7/portfolio
+    backstage.io/source-location: url:https://github.com/Lyot7/portfolio
+  tags:
+    - typescript
+    - portfolio
+    - webapp
+  links:
+    - url: https://github.com/Lyot7/portfolio
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: svelte-kpsull
+  description: Projet Svelte Kpsull
+  annotations:
+    github.com/project-slug: Lyot7/svelte-kpsull
+    backstage.io/source-location: url:https://github.com/Lyot7/svelte-kpsull
+  tags:
+    - typescript
+    - svelte
+  links:
+    - url: https://github.com/Lyot7/svelte-kpsull
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: xulinos-wp
+  description: Site WordPress Xulinos
+  annotations:
+    github.com/project-slug: Lyot7/xulinos-wp
+    backstage.io/source-location: url:https://github.com/Lyot7/xulinos-wp
+  tags:
+    - php
+    - wordpress
+  links:
+    - url: https://github.com/Lyot7/xulinos-wp
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: xulinos
+  description: Application Xulinos
+  annotations:
+    github.com/project-slug: Lyot7/xulinos
+    backstage.io/source-location: url:https://github.com/Lyot7/xulinos
+  tags:
+    - typescript
+    - webapp
+  links:
+    - url: https://github.com/Lyot7/xulinos
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: quizz-roulette
+  description: Application de quiz roulette
+  annotations:
+    github.com/project-slug: Lyot7/quizz_roulette
+    backstage.io/source-location: url:https://github.com/Lyot7/quizz_roulette
+  tags:
+    - typescript
+    - game
+    - quiz
+  links:
+    - url: https://github.com/Lyot7/quizz_roulette
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: russian-roulette
+  description: Jeu de roulette russe
+  annotations:
+    github.com/project-slug: Lyot7/russian_roulette
+    backstage.io/source-location: url:https://github.com/Lyot7/russian_roulette
+  tags:
+    - typescript
+    - game
+  links:
+    - url: https://github.com/Lyot7/russian_roulette
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: keep-watch
+  description: Application Keep Watch
+  annotations:
+    github.com/project-slug: Lyot7/keep-watch
+    backstage.io/source-location: url:https://github.com/Lyot7/keep-watch
+  tags:
+    - typescript
+    - monitoring
+  links:
+    - url: https://github.com/Lyot7/keep-watch
+      title: GitHub
+      icon: github
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: campus-care
+  description: Application CampusCare
+  annotations:
+    github.com/project-slug: Lyot7/CampusCare
+    backstage.io/source-location: url:https://github.com/Lyot7/CampusCare
+  tags:
+    - typescript
+    - education
+    - webapp
+  links:
+    - url: https://github.com/Lyot7/CampusCare
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: mb-pro-comparateur
+  description: Comparateur MB Pro
+  annotations:
+    github.com/project-slug: Lyot7/mb-pro-comparateur
+    backstage.io/source-location: url:https://github.com/Lyot7/mb-pro-comparateur
+  tags:
+    - html
+    - comparator
+  links:
+    - url: https://github.com/Lyot7/mb-pro-comparateur
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: apolloql
+  description: Projet Apollo GraphQL
+  annotations:
+    github.com/project-slug: Lyot7/apolloql
+    backstage.io/source-location: url:https://github.com/Lyot7/apolloql
+  tags:
+    - typescript
+    - graphql
+    - apollo
+  links:
+    - url: https://github.com/Lyot7/apolloql
+      title: GitHub
+      icon: github
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: visiomap
+  description: Application de cartographie VisioMap
+  annotations:
+    github.com/project-slug: Lyot7/VisioMap
+    backstage.io/source-location: url:https://github.com/Lyot7/VisioMap
+  tags:
+    - typescript
+    - maps
+    - visualization
+  links:
+    - url: https://github.com/Lyot7/VisioMap
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: architecture-move
+  description: Projet Architecture Move
+  annotations:
+    github.com/project-slug: Lyot7/ArchitectureMove
+    backstage.io/source-location: url:https://github.com/Lyot7/ArchitectureMove
+  tags:
+    - php
+    - architecture
+  links:
+    - url: https://github.com/Lyot7/ArchitectureMove
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: mb-ab-landing
+  description: Landing page MB AB (prive)
+  annotations:
+    github.com/project-slug: Lyot7/mb_ab_landing
+    backstage.io/source-location: url:https://github.com/Lyot7/mb_ab_landing
+  tags:
+    - typescript
+    - landing-page
+    - private
+  links:
+    - url: https://github.com/Lyot7/mb_ab_landing
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: co2-emissions-app
+  description: Application d'analyse des emissions CO2
+  annotations:
+    github.com/project-slug: Lyot7/CO2_Emissions_App
+    backstage.io/source-location: url:https://github.com/Lyot7/CO2_Emissions_App
+  tags:
+    - python
+    - jupyter
+    - data-science
+    - environment
+  links:
+    - url: https://github.com/Lyot7/CO2_Emissions_App
+      title: GitHub
+      icon: github
+spec:
+  type: documentation
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: portfolio-2
+  description: Seconde version du portfolio
+  annotations:
+    github.com/project-slug: Lyot7/Portfolio_2.0
+    backstage.io/source-location: url:https://github.com/Lyot7/Portfolio_2.0
+  tags:
+    - html
+    - portfolio
+  links:
+    - url: https://github.com/Lyot7/Portfolio_2.0
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: deprecated
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: symfony-task-manager
+  description: Gestionnaire de taches Symfony
+  annotations:
+    github.com/project-slug: Lyot7/Symfony_TaskManager
+    backstage.io/source-location: url:https://github.com/Lyot7/Symfony_TaskManager
+  tags:
+    - php
+    - symfony
+    - task-manager
+  links:
+    - url: https://github.com/Lyot7/Symfony_TaskManager
+      title: GitHub
+      icon: github
+spec:
+  type: service
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: environment-map
+  description: Carte environnementale interactive
+  annotations:
+    github.com/project-slug: Lyot7/EnvironmentMap
+    backstage.io/source-location: url:https://github.com/Lyot7/EnvironmentMap
+  tags:
+    - javascript
+    - maps
+    - environment
+  links:
+    - url: https://github.com/Lyot7/EnvironmentMap
+      title: GitHub
+      icon: github
+spec:
+  type: website
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage-repo
+  description: Configuration Backstage
+  annotations:
+    github.com/project-slug: Lyot7/backstage
+    backstage.io/source-location: url:https://github.com/Lyot7/backstage
+  tags:
+    - backstage
+    - devops
+  links:
+    - url: https://github.com/Lyot7/backstage
+      title: GitHub
+      icon: github
+spec:
+  type: documentation
+  lifecycle: production
+  owner: guests
+  system: lyot7-projects

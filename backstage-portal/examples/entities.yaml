@@ -1,0 +1,552 @@
+---
+# =============================================================================
+# SYSTEMS - Groupes logiques de composants
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: ecommerce-platform
+  description: Plateforme e-commerce complete avec gestion des commandes, produits et paiements
+  tags:
+    - ecommerce
+    - production
+  links:
+    - url: https://docs.example.com/ecommerce
+      title: Documentation
+      icon: docs
+spec:
+  owner: platform-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: developer-tools
+  description: Outils internes pour les developpeurs
+  tags:
+    - internal
+    - tooling
+spec:
+  owner: platform-team
+
+---
+# =============================================================================
+# COMPONENTS - Services Backend
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: order-service
+  description: Service de gestion des commandes - traitement, suivi et historique
+  tags:
+    - backend
+    - typescript
+    - nodejs
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+  links:
+    - url: https://github.com/example/order-service
+      title: GitHub
+      icon: github
+spec:
+  type: service
+  lifecycle: production
+  owner: backend-team
+  system: ecommerce-platform
+  dependsOn:
+    - resource:default/orders-database
+    - component:default/payment-service
+  providesApis:
+    - order-api
+  consumesApis:
+    - payment-api
+    - inventory-api
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payment-service
+  description: Service de traitement des paiements - integration Stripe et PayPal
+  tags:
+    - backend
+    - typescript
+    - payments
+    - critical
+spec:
+  type: service
+  lifecycle: production
+  owner: backend-team
+  system: ecommerce-platform
+  dependsOn:
+    - resource:default/payments-database
+  providesApis:
+    - payment-api
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: product-service
+  description: Service du catalogue produits - gestion des 1.3M+ produits
+  tags:
+    - backend
+    - typescript
+    - catalog
+spec:
+  type: service
+  lifecycle: production
+  owner: backend-team
+  system: ecommerce-platform
+  dependsOn:
+    - resource:default/products-database
+    - resource:default/redis-cache
+  providesApis:
+    - product-api
+    - inventory-api
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: auth-service
+  description: Service d'authentification et autorisation
+  tags:
+    - backend
+    - security
+    - auth
+spec:
+  type: service
+  lifecycle: production
+  owner: platform-team
+  system: ecommerce-platform
+  dependsOn:
+    - resource:default/users-database
+  providesApis:
+    - auth-api
+
+---
+# =============================================================================
+# COMPONENTS - Frontend / Websites
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: storefront-web
+  description: Site e-commerce client - interface utilisateur principale
+  tags:
+    - frontend
+    - sveltekit
+    - typescript
+spec:
+  type: website
+  lifecycle: production
+  owner: frontend-team
+  system: ecommerce-platform
+  dependsOn:
+    - component:default/order-service
+    - component:default/product-service
+    - component:default/auth-service
+  consumesApis:
+    - order-api
+    - product-api
+    - auth-api
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: admin-dashboard
+  description: Dashboard d'administration pour la gestion des produits et commandes
+  tags:
+    - frontend
+    - sveltekit
+    - admin
+spec:
+  type: website
+  lifecycle: production
+  owner: frontend-team
+  system: ecommerce-platform
+  consumesApis:
+    - order-api
+    - product-api
+    - auth-api
+
+---
+# =============================================================================
+# COMPONENTS - Libraries
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: shared-utils
+  description: Bibliotheque utilitaire partagee entre tous les services
+  tags:
+    - library
+    - typescript
+    - npm
+spec:
+  type: library
+  lifecycle: production
+  owner: platform-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ui-components
+  description: Composants UI reutilisables (DaisyUI + TailwindCSS)
+  tags:
+    - library
+    - svelte
+    - ui
+spec:
+  type: library
+  lifecycle: production
+  owner: frontend-team
+
+---
+# =============================================================================
+# APIs - REST (OpenAPI)
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: order-api
+  description: API REST pour la gestion des commandes
+  tags:
+    - rest
+    - orders
+spec:
+  type: openapi
+  lifecycle: production
+  owner: backend-team
+  system: ecommerce-platform
+  definition: |
+    openapi: "3.0.0"
+    info:
+      title: Order API
+      version: 1.0.0
+      description: API pour gerer les commandes clients
+    servers:
+      - url: https://api.example.com/v1
+    paths:
+      /orders:
+        get:
+          summary: Liste des commandes
+          operationId: listOrders
+          parameters:
+            - name: status
+              in: query
+              schema:
+                type: string
+                enum: [pending, confirmed, shipped, delivered]
+          responses:
+            '200':
+              description: Liste des commandes
+        post:
+          summary: Creer une commande
+          operationId: createOrder
+          responses:
+            '201':
+              description: Commande creee
+      /orders/{orderId}:
+        get:
+          summary: Details d'une commande
+          parameters:
+            - name: orderId
+              in: path
+              required: true
+              schema:
+                type: string
+          responses:
+            '200':
+              description: Details de la commande
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: payment-api
+  description: API pour le traitement des paiements
+  tags:
+    - rest
+    - payments
+    - secure
+spec:
+  type: openapi
+  lifecycle: production
+  owner: backend-team
+  system: ecommerce-platform
+  definition: |
+    openapi: "3.0.0"
+    info:
+      title: Payment API
+      version: 1.0.0
+    paths:
+      /payments:
+        post:
+          summary: Initier un paiement
+          responses:
+            '201':
+              description: Paiement initie
+      /payments/{paymentId}/confirm:
+        post:
+          summary: Confirmer un paiement
+          responses:
+            '200':
+              description: Paiement confirme
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: auth-api
+  description: API d'authentification et gestion des sessions
+  tags:
+    - rest
+    - auth
+    - security
+spec:
+  type: openapi
+  lifecycle: production
+  owner: platform-team
+  system: ecommerce-platform
+  definition: |
+    openapi: "3.0.0"
+    info:
+      title: Auth API
+      version: 1.0.0
+    paths:
+      /auth/login:
+        post:
+          summary: Connexion utilisateur
+          responses:
+            '200':
+              description: Token JWT
+      /auth/logout:
+        post:
+          summary: Deconnexion
+          responses:
+            '204':
+              description: Deconnecte
+      /auth/refresh:
+        post:
+          summary: Rafraichir le token
+          responses:
+            '200':
+              description: Nouveau token
+
+---
+# =============================================================================
+# APIs - GraphQL
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: product-api
+  description: API GraphQL pour le catalogue produits
+  tags:
+    - graphql
+    - products
+    - catalog
+spec:
+  type: graphql
+  lifecycle: production
+  owner: backend-team
+  system: ecommerce-platform
+  definition: |
+    type Query {
+      products(first: Int, after: String, category: ID): ProductConnection!
+      product(id: ID!): Product
+      searchProducts(query: String!, filters: ProductFilters): [Product!]!
+      categories: [Category!]!
+    }
+
+    type Mutation {
+      createProduct(input: ProductInput!): Product!
+      updateProduct(id: ID!, input: ProductInput!): Product!
+      deleteProduct(id: ID!): Boolean!
+    }
+
+    type Product {
+      id: ID!
+      name: String!
+      description: String
+      price: Float!
+      category: Category!
+      inventory: Int!
+      images: [String!]!
+      createdAt: DateTime!
+    }
+
+    type Category {
+      id: ID!
+      name: String!
+      products(first: Int): [Product!]!
+    }
+
+    type ProductConnection {
+      edges: [ProductEdge!]!
+      pageInfo: PageInfo!
+      totalCount: Int!
+    }
+
+    type ProductEdge {
+      node: Product!
+      cursor: String!
+    }
+
+    type PageInfo {
+      hasNextPage: Boolean!
+      endCursor: String
+    }
+
+    input ProductInput {
+      name: String!
+      description: String
+      price: Float!
+      categoryId: ID!
+    }
+
+    input ProductFilters {
+      minPrice: Float
+      maxPrice: Float
+      categoryId: ID
+      inStock: Boolean
+    }
+
+    scalar DateTime
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: inventory-api
+  description: API pour la gestion des stocks
+  tags:
+    - rest
+    - inventory
+spec:
+  type: openapi
+  lifecycle: production
+  owner: backend-team
+  system: ecommerce-platform
+  definition: |
+    openapi: "3.0.0"
+    info:
+      title: Inventory API
+      version: 1.0.0
+    paths:
+      /inventory/{productId}:
+        get:
+          summary: Stock d'un produit
+          responses:
+            '200':
+              description: Niveau de stock
+        patch:
+          summary: Mettre a jour le stock
+          responses:
+            '200':
+              description: Stock mis a jour
+
+---
+# =============================================================================
+# RESOURCES - Infrastructure
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: orders-database
+  description: Base de donnees PostgreSQL pour les commandes
+  tags:
+    - database
+    - postgresql
+    - production
+spec:
+  type: database
+  owner: platform-team
+  system: ecommerce-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: products-database
+  description: Base de donnees PostgreSQL pour le catalogue produits (1.3M+ produits)
+  tags:
+    - database
+    - postgresql
+    - large-scale
+spec:
+  type: database
+  owner: platform-team
+  system: ecommerce-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: payments-database
+  description: Base de donnees PostgreSQL pour les transactions de paiement
+  tags:
+    - database
+    - postgresql
+    - secure
+    - pci-dss
+spec:
+  type: database
+  owner: platform-team
+  system: ecommerce-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: users-database
+  description: Base de donnees PostgreSQL pour les utilisateurs et sessions
+  tags:
+    - database
+    - postgresql
+    - auth
+spec:
+  type: database
+  owner: platform-team
+  system: ecommerce-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: redis-cache
+  description: Cache Redis pour les produits frequemment accedes (TTL 10min)
+  tags:
+    - cache
+    - redis
+    - performance
+spec:
+  type: cache
+  owner: platform-team
+  system: ecommerce-platform
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: minio-storage
+  description: Stockage S3-compatible MinIO pour les images produits
+  tags:
+    - storage
+    - s3
+    - minio
+spec:
+  type: storage
+  owner: platform-team
+  system: ecommerce-platform
