@@ -1,0 +1,93 @@
+---
+# =============================================================================
+# USERS
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: guest
+spec:
+  memberOf: [guests]
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: admin
+  description: Administrateur systeme
+spec:
+  memberOf: [platform-team]
+  profile:
+    displayName: Admin User
+    email: admin@example.com
+
+---
+# =============================================================================
+# GROUPS / TEAMS
+# =============================================================================
+
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: guests
+  description: Utilisateurs invites
+spec:
+  type: team
+  children: []
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: engineering
+  description: Departement Engineering
+spec:
+  type: department
+  children:
+    - backend-team
+    - frontend-team
+    - platform-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: backend-team
+  description: Equipe Backend - Services, APIs, bases de donnees
+  tags:
+    - backend
+    - api
+spec:
+  type: team
+  parent: engineering
+  children: []
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: frontend-team
+  description: Equipe Frontend - Websites, UI/UX, composants
+  tags:
+    - frontend
+    - ui
+spec:
+  type: team
+  parent: engineering
+  children: []
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: platform-team
+  description: Equipe Platform - Infrastructure, DevOps, outils
+  tags:
+    - platform
+    - infrastructure
+    - devops
+spec:
+  type: team
+  parent: engineering
+  children: []
